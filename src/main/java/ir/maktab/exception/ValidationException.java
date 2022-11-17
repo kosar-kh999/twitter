@@ -1,0 +1,7 @@
+package ir.maktab.exception;
+
+public class ValidationException extends Exception {
+    public ValidationException(String message) {
+        super(message);
+    }
+}
