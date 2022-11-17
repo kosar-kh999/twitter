@@ -5,6 +5,7 @@ import ir.maktab.model.Comment;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import java.util.List;
 
 public class CommentRepository extends HibernateConfig {
     public static EntityManager entityManager = Persistence.createEntityManagerFactory("PU").createEntityManager();
@@ -25,6 +26,12 @@ public class CommentRepository extends HibernateConfig {
         entityManager.getTransaction().commit();
         entityManager.close();
         return comment;
+    }
+
+    public List<Comment> getCommentOfTweet(){
+        entityManager.getTransaction().begin();
+        return null;
+
     }
 
     public void update(Comment comment) {

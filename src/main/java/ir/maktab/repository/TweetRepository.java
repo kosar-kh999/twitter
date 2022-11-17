@@ -1,6 +1,5 @@
 package ir.maktab.repository;
 
-import ir.maktab.model.Account;
 import ir.maktab.model.Tweet;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
@@ -8,6 +7,7 @@ import org.hibernate.SessionFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import java.util.List;
 
 @Slf4j
 public class TweetRepository extends HibernateConfig {
@@ -30,6 +30,14 @@ public class TweetRepository extends HibernateConfig {
         entityManager.getTransaction().commit();
         entityManager.close();
         return tweet;
+    }
+
+    public List<Tweet> getAll() {
+        entityManager.getTransaction().begin();
+        String hql = "from Tweet ";
+        Query query = entityManager.createQuery(hql, Tweet.class);
+        List<Tweet> tweets = query.getResultList();
+        return tweets;
     }
 
     public void update(Tweet tweet) {

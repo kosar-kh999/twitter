@@ -23,7 +23,7 @@ public class Tweet {
     List<Comment> comments = new ArrayList<>();
     int like;
     @CreationTimestamp
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIME)
     Date publish;
     @ManyToOne
     Account account;

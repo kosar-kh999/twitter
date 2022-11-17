@@ -1,5 +1,6 @@
 package ir.maktab.repository;
 
+import ir.maktab.exception.DuplicateUsernameException;
 import ir.maktab.model.Account;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,12 +23,27 @@ public class AccountRepository extends HibernateConfig {
         log.info("account saved");
     }
 
-    public Account findByUsername(String username) {
+    public boolean checkUsername(String username) throws DuplicateUsernameException {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        String hql = "from Account where user.username=:username";
+        String hql = "SELECT COUNT (*) FROM Account where user.username=:username";
         Query query = session.createQuery(hql, Account.class);
         query.setParameter("username", username);
+        long count = (long) query.getSingleResult();
+        transaction.commit();
+        session.close();
+        if (count > 1)
+            throw new DuplicateUsernameException("Username is duplicated");
+        return true;
+    }
+
+    public Account findByUsernameAndPassword(String username, String password) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        String hql = "from Account where user.username=:username and user.password=:password";
+        Query query = session.createQuery(hql, Account.class);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
         Account account = (Account) query.getSingleResult();
         transaction.commit();
         session.close();
