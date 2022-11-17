@@ -7,10 +7,10 @@
 
     <persistence-unit name="PU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <!--<class>model.Account</class>
-        <class>model.Manager</class>
-        <class>model.Project</class>
-        <class>model.Employee</class>-->
+        <class>ir.maktab.model.Tweet</class>
+        <class>ir.maktab.model.Account</class>
+        <class>ir.maktab.model.User</class>
+        <class>ir.maktab.model.Comment</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>

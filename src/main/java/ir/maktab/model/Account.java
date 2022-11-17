@@ -22,7 +22,7 @@ public class Account {
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     Date openingDate;
-    @ManyToOne
+    @Embedded
     User user;
     @OneToMany(mappedBy = "tweet")
     List<Tweet> tweets = new ArrayList<>();

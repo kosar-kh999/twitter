@@ -4,8 +4,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -13,15 +11,16 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
+@Embeddable
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String fullName;
+    @Column(unique = true)
     String username;
     String password;
+    @Column(length = 11)
     String phoneNumber;
     String country;
-    @OneToMany(mappedBy = "account")
-    List<Account> accounts = new ArrayList<>();
 }
